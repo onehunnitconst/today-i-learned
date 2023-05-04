@@ -13,3 +13,6 @@
     * [2751: 수 정렬하기 2](data_structures_and_algorithms/ps/boj/2751.md)
   * [프로그래머스 문제풀이](data_structures_and_algorithms/ps/programmers/README.md)
 * [개념](data_structures_and_algorithms/concepts/README.md)
+
+## 프로그래밍 패러다임
+* [클린 코드 1장](paradigm/clean-code/1.md)
