@@ -4,12 +4,12 @@
 
 ## 운영체제
 
-* [쉽게 배우는 운영체제 (곰책)](/operating_system/bear1)
-  * [2장](/operating_system/bear1/ch02)
-    * [CPU](/operating_system/bear1/ch02/cpu.md)
-    * [메모리](/operating_system/bear1/ch02/memory.md)
-    * [버퍼](/operating_system/bear1/ch02/buffer.md)
-    * [병렬 처리](/operating_system/bear1/ch02/parallel.md)
+* [쉽게 배우는 운영체제 (곰책)](/os/bear1/README.md)
+  * [2장](/os/bear1/ch02/README.md)
+    * [CPU](/os/bear1/ch02/cpu.md)
+    * [메모리](/os/bear1/ch02/memory.md)
+    * [버퍼](/os/bear1/ch02/buffer.md)
+    * [병렬 처리](/os/bear1/ch02/parallel.md)
 
 ## 데이터베이스
 
