@@ -19,8 +19,8 @@ while t > 0:
   elif w == 1:
     floor = n
 
-  result = floor*100 + room
-  print(result)
+result = floor*100 + room
+print(result)
 ```
 
 ## 의도를 분명히 밝혀라
@@ -54,7 +54,7 @@ for _ in range(0, totalTestCase):
   heightOfHotel, widthOfHotel, customerArrivalNumber = list(map(int, input().split()))
   roomFloor = 1
   roomNumber = 1
-  if h > 1 and w > 1:
+  if heightOfHotel > 1 and widthOfHotel > 1:
     roomFloor = (customerArrivalNumber-1) % heightOfHotel + 1
     roomNumber = (customerArrivalNumber-1) // heightOfHotel + 1
   elif h == 1:
@@ -62,8 +62,8 @@ for _ in range(0, totalTestCase):
   elif w == 1:
     roomFloor = customerArrivalNumber
 
-  result = floor*100 + room
-  print(result)
+result = roomFloor*100 + roomNumber
+print(result)
 ```
 
 ### 값 1의 의미
@@ -86,14 +86,17 @@ for _ in range(0, totalTestCase):
   heightOfHotel, widthOfHotel, customerArrivalNumber = list(map(int, input().split()))
   roomFloor = SINGLE_FLOOR
   roomNumber = SINGLE_ROOM_NUMBER
-  if h > FIRST_FLOOR and w > FIRST_ROOM_NUMBER:
+  if heightOfHotel > FIRST_FLOOR and w > FIRST_ROOM_NUMBER:
     roomFloor = (customerArrivalNumber - 1) % heightOfHotel + 1
     roomNumber = (customerArrivalNumber - 1) // heightOfHotel + 1
-  elif h == FIRST_FLOOR:
+  elif heightOfHotel == FIRST_FLOOR:
     roomNumber = customerArrivalNumber
-  elif w == FIRST_ROOM_NUMBER:
+  elif widthOfHotel == FIRST_ROOM_NUMBER:
     roomFloor = customerArrivalNumber
 
-  result = floor*100 + room
-  print(result)
+result = roomFloor*100 + roomNumber
+print(result)
 ```
+
+### 맥락 개선
+
