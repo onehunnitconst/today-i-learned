@@ -109,6 +109,7 @@ var it = L.filter(a => a % 2, [1, 2, 3, 4]); // 1, 3
       let cur;
       while (!(cur = iter.next()).done) {
         const e = cur.value;
+        res.push(e);
         if (res.length == length) { // length만큼 값을 push하면 바로 리턴
           return res;
         }
@@ -165,3 +166,70 @@ var it = L.filter(a => a % 2, [1, 2, 3, 4]); // 1, 3
 ```
 
 ## L.range, L.map, L.filter, take 중첩 사용
+```js
+    const reduce = (f, acc, iter) => {
+      if (!iter) {
+        iter = acc[Symbol.iterator]();
+        acc = iter.next().value; // 3번째 인자가 없을 경우 acc로 받은 배열 값의 첫 번째 원소를 acc값으로 둠
+      } else {
+        iter = iter[Symbol.iterator]();
+      }
+      
+      let cur;
+      while (!(cur = iter.next()).done) {
+        const e = cur.value;
+        acc = f(acc, e);
+      }
+      return acc;
+    };
+
+    const go = (...args) => reduce((a, f) => f(a), args)
+    const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
+    const curry = f =>
+      (a, ..._) => _.length ? f(a, ..._) : (..._) => f(a, ..._);
+
+    const L = {};
+
+    L.range = function *(length) {
+      let index = -1;
+      while (++index < length) {
+        yield index;
+      }
+    };
+
+    L.map = curry(function *(f, iter) {
+      for (const e of iter) {
+        yield f(e);
+      }
+    });
+
+    L.filter = curry(function *(f, iter) {
+      for (const e of iter) {
+        if (f(e)) {
+          yield e;
+        }
+      }
+    });
+
+    const take = curry((length, iter) => {
+      let res = [];
+      iter = iter[Symbol.iterator]();
+      let cur;
+      while (!(cur = iter.next()).done) {
+        const e = cur.value;
+        res.push(e);
+        if (res.length == length) { // length만큼 값을 push하면 바로 리턴
+          return res;
+        }
+      }
+      return res;
+    })
+
+    go(
+      L.range(10),
+      L.map(n => n + 10),
+      L.filter(n => n % 2),
+      take(2),
+      console.log,
+    );
+```

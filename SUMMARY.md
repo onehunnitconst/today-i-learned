@@ -35,3 +35,5 @@
   * [1장: 깨끗한 코드](paradigm/clean-code/1.md)
   * [2장: 의미있는 이름](paradigm/clean-code/2.md)
   * [3장: 함수](paradigm/clean-code/3.md)
+* [클린 코드 실습]
+  * [2장: 의미있는 이름](paradigm/clean-code/exercise/2-exercise.md)
