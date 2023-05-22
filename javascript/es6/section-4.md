@@ -81,3 +81,71 @@ console.log(mult2(10)); //30
   ```
 
 ## 함수 조합으로 함수 만들기
+```js
+const totalPrice = pipe(
+  map(p => price),
+  reduce(add)
+);
+
+const baseTotalPrice = predicate => pipe(
+  filter(predicate),
+  totalPrice,
+)
+
+go(
+  products,
+  baseTotalPrice(p => p.price < 20000)
+  console.log,
+)
+```
+
+## 총 수량, 총 가격
+```js
+const products = [
+  { name: '반팔티', price: 15000, quantity: 1 },
+  { name: '긴팔티', price: 20000, quantity: 2 },
+  { name: '핸드폰케이스', price: 15000, quantity: 3 },
+  { name: '후드티', price: 30000, quantity: 4 },
+  { name: '바지', price: 25000, quantity: 5 },
+];
+
+const add = (a, b) => a + b;
+
+const totalQuantity = pipe(
+  map(p => p.quantity),
+  reduce((a, b) => a + b),
+);
+
+const totalPrice = pipe(
+  map(p => p.price * p.quantity),
+  reduce((a, b) => a + b),
+);
+```
+
+```js
+const add = (a, b) => a + b;
+
+const sum = (f, iter) => go(
+  iter,
+  map(f),
+  reduce(add),
+);
+
+const totalQuantity = products => sum(p => p.quantity, products);
+
+const totalPrice = products => sum(p => p.price * p.quantity, products);
+```
+
+```js
+const add = (a, b) => a + b;
+
+const sum = curry((f, iter) => go(
+  iter,
+  map(f),
+  reduce(add),
+));
+
+const totalQuantity = products => sum(p => p.quantity);
+
+const totalPrice = products => sum(p => p.price * p.quantity);
+```
