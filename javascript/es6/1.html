@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+  <script>
+    const go = (...args) => reduce((a, f) => f(a), args)
+    const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
+    const curry = f =>
+      (a, ..._) => _.length ? f(a, ..._) : (..._) => f(a, ..._);
+
+    const range = length => {
+      let index = -1;
+      let res = [];
+      while (++index < length) {
+        res.push(index);
+      }
+      return res;
+    };
+
+    const take = curry((length, iter) => {
+      let res = [];
+      for (const a of iter) {
+        res.push(a);
+        if (res.length == length) { // length만큼 값을 push하면 바로 리턴
+          return res;
+        }
+      }
+      return res;
+    })
+
+    const map = curry((f, iter) => {
+      let res = [];
+      for (const e of iter) {
+        res.push(f(e)); // 어떤 값을 수집할지는 f 함수에게 위임함.
+      }
+      return res;
+    });
+
+    const filter = curry((f, iter) => {
+      let res = [];
+      for (const e of iter) {
+        if (f(e)) res.push(e);
+      }
+      return res;
+    });
+
+    const reduce = curry((f, acc, iter) => {
+      if (!iter) {
+        iter = acc[Symbol.iterator]();
+        acc = iter.next().value; // 3번째 인자가 없을 경우 acc로 받은 배열 값의 첫 번째 원소를 acc값으로 둠
+      }
+      for (const a of iter) {
+        acc = f(acc, a);
+      }
+      return acc;
+    });
+
+    go(
+      range(10), 
+      map(n => n + 10),
+      filter(n => n % 2),
+      take(2),
+      reduce((a, b) => a + b),
+      console.log,
+    );
+  </script>
+</body>
