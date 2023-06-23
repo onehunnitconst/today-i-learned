@@ -5,21 +5,28 @@
 </head>
 
 <body>
+  <script src="./fx.js"></script>
   <script>
-    const go = (...args) => reduce((a, f) => f(a), args)
-    const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
-    const curry = f =>
-      (a, ..._) => _.length ? f(a, ..._) : (..._) => f(a, ..._);
+    const join = curry((sep, iter) => reduce((a, b) => `${a}${sep}${b}`, iter));
 
-    const range = length => {
-      let index = -1;
-      let res = [];
-      while (++index < length) {
-        res.push(index);
-      }
-      return res;
-    };
+    const queryStr = pipe(
+      L.entries,
+      L.map(([k, v]) => `${k}=${v}`),
+      join('&')
+    );
 
+    console.log(queryStr({ page: 2, size: 5 }));
+
+    const users = [
+      { age: 32 },
+      { age: 31 },
+      { age: 37 },
+      { age: 28 },
+      { age: 25 },
+      { age: 32 },
+      { age: 31 },
+      { age: 37 }
+    ];
     const take = curry((length, iter) => {
       let res = [];
       iter = iter[Symbol.iterator]();
@@ -34,51 +41,31 @@
       return res;
     })
 
-    const map = curry((f, iter) => {
-      let res = [];
-      iter = iter[Symbol.iterator]();
-      let cur;
-      while (!(cur = iter.next()).done) {
-        const e = cur.value;
-        res.push(f(e));
-      }
-      return res;
-    });
+    const find = curry((f, iter) => go(
+      iter,
+      filter(f),
+      take(1),
+      ([a]) => a,
+    ));
 
-    const filter = curry((f, iter) => {
-      let res = [];
-      iter = iter[Symbol.iterator]();
-      let cur;
-      while (!(cur = iter.next()).done) {
-        const e = cur.value;
-        if (f(e)) res.push(e);
-      }
-      return res;
-    });
+    console.log(find(v => v.age < 30, users));
 
-    const reduce = curry((f, acc, iter) => {
-      if (!iter) {
-        iter = acc[Symbol.iterator]();
-        acc = iter.next().value; // 3번째 인자가 없을 경우 acc로 받은 배열 값의 첫 번째 원소를 acc값으로 둠
-      } else {
-        iter = iter[Symbol.iterator]();
-      }
-      
-      let cur;
-      while (!(cur = iter.next()).done) {
-        const e = cur.value;
-        acc = f(acc, e);
-      }
-      return acc;
-    });
+    const isIterable = (a) => a && a[Symbol.iterator];
 
-    go(
-      range(10), 
-      map(n => n + 10),
-      filter(n => n % 2),
-      take(2),
-      reduce((a, b) => a + b),
-      console.log,
-    );
+L.flatten = function *(iter) {
+  for (const a of iter) {
+    if (isIterable(a)) {
+      for (const b of a) yield b;
+    } else {
+      yield a;
+    }
+  }
+}
+
+const flatten = pipe(L.flatten, take(Infinity));
+
+var it = [[1, 2], 3, 4, [5, [6, 7]], 8];
+
+console.log(flatten(it));
   </script>
 </body>

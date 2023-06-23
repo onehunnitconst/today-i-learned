@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+  <script>
+  function add10(a, callback) {
+    setTimeout(() => callback(a + 10), 100)
+  }
+
+  add10(5, (res) => {
+    console.log(res);
+  })
+
+  // 콜백 지옥
+  add10(5, (res) => {
+    add10(res, (res) => {
+      add10(res, (res) => {
+        add10(res, (res) => {
+          console.log(res);
+        });
+      });
+    });
+  })
+
+  function add20(a) {
+    return new Promise((resolve) => setTimeout(() => resolve(a + 20), 100));
+  }
+
+  // 프로미스의 경우 then으로 정리
+  add20(5)
+    .then(add20)
+    .then(add20)
+    .then(add20)
+    .then(console.log);
+  </script>
+</body>

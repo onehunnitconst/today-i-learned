@@ -103,19 +103,17 @@ var it = L.filter(a => a % 2, [1, 2, 3, 4]); // 1, 3
       return res;
     };
 
-    const take = curry((length, iter) => {
-      let res = [];
-      iter = iter[Symbol.iterator]();
-      let cur;
-      while (!(cur = iter.next()).done) {
-        const e = cur.value;
-        res.push(e);
-        if (res.length == length) { // length만큼 값을 push하면 바로 리턴
-          return res;
-        }
-      }
-      return res;
-    })
+  const take = curry((l, iter) => {
+    let res = [];
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+      const a = cur.value;
+      res.push(a);
+      if (res.length == l) return res;
+    }
+    return res;
+  });
 
     const map = curry((f, iter) => {
       let res = [];
