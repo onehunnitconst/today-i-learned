@@ -4,3 +4,4 @@
 * [4장: 주석](paradigm/clean-code/4.md)
 * [5장: 형식 맞추기](paradigm/clean-code/5.md)
 * [6장: 객체와 자료 구조](paradigm/clean-code/6.md)
+* [6장 사례](paradigm/clean-code/exercise/6-exercise.md)
