@@ -38,5 +38,6 @@
   * [4장: 주석](paradigm/clean-code/4.md)
   * [5장: 형식 맞추기](paradigm/clean-code/5.md)
   * [6장: 객체와 자료 구조](paradigm/clean-code/6.md)
-* [클린 코드 실습]
+* 클린 코드 실습
   * [2장: 의미있는 이름](paradigm/clean-code/exercise/2-exercise.md)
+  * [6장: 객체와 자료 구조](paradigm/clean-code/exercise/6-exercise.md)
