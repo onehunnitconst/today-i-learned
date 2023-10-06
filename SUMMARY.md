@@ -39,6 +39,7 @@
   * [5장: 형식 맞추기](paradigm/clean-code/5.md)
   * [6장: 객체와 자료 구조](paradigm/clean-code/6.md)
   * [7장: 예외 처리](paradigm/clean-code/7.md)
+  * [8장: 경계](paradigm/clean-code/8.md)
 * [클린 코드 실습](paradigm/clean-code/exercise/README.md)
   * [2장: 의미있는 이름](paradigm/clean-code/exercise/2-exercise.md)
   * [6장: 객체와 자료 구조](paradigm/clean-code/exercise/6-exercise.md)
